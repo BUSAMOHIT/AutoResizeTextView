@@ -11,13 +11,6 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import androidx.appcompat.widget.AppCompatTextView
 
-/**
- * a textView that is able to self-adjust its font size depending on the min and max size of the font, and its own size.<br></br>
- * code is heavily based on this StackOverflow thread:
- * http://stackoverflow.com/questions/16017165/auto-fit-textview-for-android/21851239#21851239 <br></br>
- * It should work fine with most Android versions, but might have some issues on Android 3.1 - 4.04, as setTextSize will only work for the first time. <br></br>
- * More info here: https://code.google.com/p/android/issues/detail?id=22493 and here in case you wish to fix it: http://stackoverflow.com/a/21851239/878126
- */
 class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = android.R.attr.textViewStyle) : AppCompatTextView(context, attrs, defStyle) {
     private val availableSpaceRect = RectF()
     private val sizeTester: SizeTester
@@ -174,13 +167,7 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
     }
 
     private fun adjustTextSize() {
-        // This is a workaround for truncated text issue on ListView, as shown here: https://github.com/AndroidDeveloperLB/AutoFitTextView/pull/14
-        // TODO think of a nicer, elegant solution.
-        //    post(new Runnable()
-        //    {
-        //    @Override
-        //    public void run()
-        //      {
+       
         if (!initialized)
             return
         val startSize = minTextSize.toInt()
@@ -192,8 +179,7 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
         availableSpaceRect.right = widthLimit.toFloat()
         availableSpaceRect.bottom = heightLimit.toFloat()
         superSetTextSize(startSize)
-        //      }
-        //    });
+       
     }
 
     private fun superSetTextSize(startSize: Int) {
